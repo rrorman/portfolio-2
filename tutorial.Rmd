@@ -1,0 +1,39 @@
+---
+title: "Ggplot2 Tutorial"
+author: "Reilly Orman"
+date: "4/30/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ggplot Description
+
+Data visualization is key in analyzing data and understanding relationships between aspects of your data. 
+
+Ggplot is one of the main packages used to visualize data, which is part of the `tidyverse` package. 
+
+Some of the aspects that I will be going over in this tutorial are the basic functions and requirements in ggplot, such as the data, aesthetic mappings (`aes()`), and geom functions. 
+
+The functions I will be going over in this tutorial are:
+
+1. `geom_point`
+2. `geom_bar`
+3. `geom_density`
+4. `geom_jitter`
+
+## The Basics
+
+First, we need to load the essential packages for using ggplot2. You can either install/load `tidyverse` or `ggplot2`. 
+
+I am also going to load the `gapminder` data set, which I am going to use to demonstrate some functions of ggplot2.
+
+```{r}
+#load required packages
+library(tidyverse)
+library(gapminder)
+```
+
+
