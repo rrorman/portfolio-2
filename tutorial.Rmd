@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Ggplot Description
+## **Ggplot Description**
 
 Data visualization is key in analyzing data and understanding relationships between aspects of your data. 
 
@@ -24,16 +24,109 @@ The functions I will be going over in this tutorial are:
 3. `geom_density`
 4. `geom_jitter`
 
-## The Basics
+## **The Basics**
 
 First, we need to load the essential packages for using ggplot2. You can either install/load `tidyverse` or `ggplot2`. 
 
-I am also going to load the `gapminder` data set, which I am going to use to demonstrate some functions of ggplot2.
+I am also going to load the `penguins` data set from the `palmerpenguins` package, which I will use to demonstrate some functions of ggplot2.
 
 ```{r}
 #load required packages
 library(tidyverse)
-library(gapminder)
+library(palmerpenguins)
 ```
 
+The basic structure of making a ggplot graph would be the `ggplot()` function, your data, aesthetic mappings, and the `geom_function` you want to use. 
 
+Here is an example of this structure.
+
+```{r}
+#  Scatterplot illustrating relationship between penguins' body mass and bill length   
+ggplot(data = penguins) +
+  aes(x = body_mass_g, 
+      y = bill_length_mm) +
+  geom_point()
+```
+
+As featured in this example, the ggplot function (`ggplot()`) is the first step in creating any data visualization with `ggplot2`. The data set I used was the penguins data set, and I separated each step with a + sign, which signals that you're adding to your graph. 
+
+## **Aesthetics**
+
+Then, I set the aesthetics with the `aes()` mappings, which connects your variables with visual dimensions. These aesthetics can be customized by color, fill, shape, and size.
+
+If I wanted to recreate the previous plot by seeing the relationship between body mass and bill length by species, I would add either a color or fill that connects to the variable `species`. 
+
+```{r}
+# Scatterplot showing body mass and bill length by species
+ggplot(data = penguins) +
+  aes(x = body_mass_g,
+      y = bill_length_mm,
+      color = species) +
+  geom_point()
+```
+
+If I wanted the whole plot to be one color that is not subset by species, then I would specify the color outside of the visual aesthetics and inside my `geom_function`. 
+
+```{r}
+# Scatterplot showing body mass and bill length outlined in purple
+ggplot(data = penguins) +
+  aes(x = body_mass_g,
+      y = bill_length_mm) +
+  geom_point(color = "purple")
+```
+
+## **Geom Functions**
+
+There are dozens upon dozens of geom functions that have specific aesthetics to follow. In this tutorial, we are only going to focus on some of the more common and useful ones in respect to data visualization. 
+
+### **`geom_point`**
+
+The `geom_point()` function adds points to your graph, creating a scatterplot. This function is often used when there are two continuous variables being measured. 
+
+What if we wanted to see a basic trend line from the last graph? For trend lines, the function `geom_smooth()` is used, which has a method aesthetic for the type of trend line presented. 
+
+For a straight trend line, the `method = "lm"` is used, and for a curved trend line, `method = "loess"` is used. 
+
+```{r}
+#Scatterplot with straight trend line
+ggplot(data = penguins) +
+  aes(x = body_mass_g,
+      y = bill_length_mm) +
+  geom_point() +
+  geom_smooth(method = "lm")
+  
+```
+
+```{r}
+#Scatterplot with curved trend line
+ggplot(data = penguins) +
+  aes(x = body_mass_g,
+      y = bill_length_mm) +
+  geom_point() +
+  geom_smooth(method = "loess")
+```
+
+## **`geom_bar`**
+
+The `geom_bar()` function plots a discrete variable. 
+
+The basic structure of geom_bar is outlined below. 
+
+
+```{r eval = FALSE}
+ggplot(data = <dataset>) +
+  aes(x = <categorical variable>,
+      y = <numerical variable>) +
+  geom_bar(color = "named color",
+           fill = "named color",
+           stat = <statistical computation)
+```
+
+```{r}
+#Bar chart for penguin species
+ggplot(data = penguins) +
+  aes(x = species) +
+  geom_bar()
+```
+
+As defaulted, the statistical computation for a bar chart in ggplot2 is count, where the number of penguins by species is plotted on the y axis. 
